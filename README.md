@@ -1,10 +1,10 @@
 # 🧠 Stroke Prediction App
 
+[![GitHub](https://img.shields.io/badge/GitHub-Repository-blue?logo=github)](https://github.com/SatyaTejaChukka/stroke-prediction)  
 [![Python](https://img.shields.io/badge/python-3.11-blue?logo=python&logoColor=white)](https://www.python.org/)  
 [![FastAPI](https://img.shields.io/badge/FastAPI-009688?logo=fastapi&logoColor=white)](https://fastapi.tiangolo.com/)  
 [![Docker](https://img.shields.io/badge/docker-%230db7ed.svg?logo=docker&logoColor=white)](https://www.docker.com/)  
 [![AWS](https://img.shields.io/badge/AWS-%23ff9900.svg?logo=amazon-aws&logoColor=white)](https://aws.amazon.com/)  
-[![MIT License](https://img.shields.io/badge/license-MIT-green)](LICENSE)
 
 A **full-stack Machine Learning application** that predicts **stroke risk** based on patient health data.
 
@@ -25,8 +25,7 @@ Built with:
 6. [⚙️ Environment Variables](#️-environment-variables)  
 7. [☁ AWS Deployment Instructions](#-aws-deployment-instructions)  
 8. [📸 Screenshots / Demo](#-screenshots--demo)  
-9. [📜 License](#-license)  
-10. [👨‍💻 Author](#-author)  
+ 
 
 ---
 
@@ -87,8 +86,8 @@ stroke_prediction_app/
 
 ### Clone repo
 ```bash
-git clone https://github.com/yourusername/stroke_prediction_app.git
-cd stroke_prediction_app
+git clone https://github.com/SatyaTejaChukka/stroke-prediction.git
+cd stroke-prediction
 ```
 
 ### Backend setup
@@ -106,6 +105,15 @@ Open `frontend/index.html` in a browser directly or serve with a simple HTTP ser
 cd frontend
 python -m http.server 8080  # Runs frontend at http://127.0.0.1:8080
 ```
+
+---
+
+## 🌐 Live Deployment
+
+The application is deployed on AWS and accessible at:
+
+- **Frontend**: [http://stroke-prediction-frontend.s3-website.eu-north-1.amazonaws.com](http://stroke-prediction-frontend.s3-website.eu-north-1.amazonaws.com)  
+- **Backend API Docs**: [http://stroke-backend-env.eba-d2shsa58.us-west-2.elasticbeanstalk.com/docs](http://stroke-backend-env.eba-d2shsa58.us-west-2.elasticbeanstalk.com/docs)  
 
 ---
 
