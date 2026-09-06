@@ -1,4 +1,4 @@
-# 🧠 NeuroGuard AI | Stroke Risk Prediction Platform
+# 🧠 StrokeRisk AI | Clinical Stroke Risk Predictor
 
 [![GitHub](https://img.shields.io/badge/GitHub-Repository-blue?logo=github)](https://github.com/SatyaTejaChukka/stroke-prediction)
 [![Vercel](https://img.shields.io/badge/Vercel-Deployed-black?logo=vercel)](https://vercel.com)
@@ -29,7 +29,7 @@ A **full-stack Machine Learning clinical decision support platform** that predic
 ```mermaid
 flowchart LR
     subgraph Vercel["Vercel (Frontend CDN)"]
-        UI["NeuroGuard AI UI\n(index.html, styles.css, script.js)"]
+        UI["StrokeRisk AI UI\n(index.html, styles.css, script.js)"]
         VercelConfig["vercel.json\n(Security Headers, Rewrites)"]
     end
 

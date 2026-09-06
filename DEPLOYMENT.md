@@ -1,6 +1,6 @@
 # 🚀 Production Deployment Guide: Vercel & Render
 
-This step-by-step guide explains how to deploy the **NeuroGuard AI Stroke Prediction** application to production:
+This step-by-step guide explains how to deploy the **StrokeRisk AI - Clinical Stroke Risk Predictor** application to production:
 - **Backend API**: Hosted on **Render** (FastAPI + Scikit-Learn ML Model)
 - **Frontend App**: Hosted on **Vercel** (Responsive Clinical UI)
 
@@ -32,7 +32,7 @@ Render offers free-tier hosting for Python web services with automated SSL certi
 1. Push your latest code to GitHub:
    ```bash
    git add .
-   git commit -m "Deploy NeuroGuard AI to Render and Vercel"
+   git commit -m "Deploy StrokeRisk AI to Render and Vercel"
    git push origin main
    ```
 2. Log in to your [Render Dashboard](https://dashboard.render.com/).

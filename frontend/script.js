@@ -1,5 +1,5 @@
 /**
- * NeuroGuard AI - Clinical Stroke Risk Assessment Platform
+ * StrokeRisk AI - Clinical Stroke Risk Assessment Platform
  * Dynamic Frontend Engine & API Client
  * 
  * NOTE: No backend URLs are hardcoded. The backend endpoint is resolved dynamically:
@@ -129,11 +129,11 @@ async function resolveAndCheckBackend() {
                 if (data.apiUrl && data.apiUrl.trim()) {
                     API_BASE_URL = data.apiUrl.trim().replace(/\/+$/, '');
                     elements.apiUrlInput.value = API_BASE_URL;
-                    console.log('[NeuroGuard] Resolved backend URL from Vercel environment:', API_BASE_URL);
+                    console.log('[StrokeRisk] Resolved backend URL from Vercel environment:', API_BASE_URL);
                 }
             }
         } catch (e) {
-            console.warn('[NeuroGuard] /api/config endpoint unavailable:', e);
+            console.warn('[StrokeRisk] /api/config endpoint unavailable:', e);
         }
     }
 
@@ -541,7 +541,7 @@ function copySummaryText() {
     const factors = Array.from(elements.riskFactorsList.querySelectorAll('li')).map(li => `• ${li.textContent}`).join('\n');
     const recs = Array.from(elements.recommendationsList.querySelectorAll('li')).map(li => `• ${li.textContent}`).join('\n');
 
-    const summary = `--- NEUROGUARD AI STROKE ASSESSMENT REPORT ---
+    const summary = `--- STROKERISK AI CLINICAL ASSESSMENT REPORT ---
 Risk Level: ${tier}
 Stroke Probability: ${prob}
 Key Factors:

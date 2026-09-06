@@ -2,7 +2,7 @@
   "name": "stroke-prediction-web",
   "version": "2.0.0",
   "private": true,
-  "description": "NeuroGuard AI Stroke Risk Prediction Platform",
+  "description": "StrokeRisk AI - Clinical Stroke Risk Prediction Platform",
   "scripts": {
     "build": "node build.js"
   }

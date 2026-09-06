@@ -2,7 +2,7 @@
   "name": "stroke-prediction-frontend",
   "version": "2.0.0",
   "private": true,
-  "description": "NeuroGuard AI Stroke Risk Prediction Frontend",
+  "description": "StrokeRisk AI - Clinical Stroke Risk Prediction Frontend",
   "scripts": {
     "build": "node build.js"
   }
