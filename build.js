@@ -16,6 +16,7 @@ window.__ENV__ = {
 };
 `;
 
+// 1. Write config.js in root and frontend
 const targets = [
   path.join(__dirname, 'config.js'),
   path.join(__dirname, 'frontend', 'config.js')
@@ -32,3 +33,26 @@ targets.forEach((targetPath) => {
     console.warn(`[build.js] Could not write to ${targetPath}:`, err.message);
   }
 });
+
+// 2. Also populate public/ directory as a robust fail-safe for Vercel
+try {
+  const publicDir = path.join(__dirname, 'public');
+  const frontendDir = path.join(__dirname, 'frontend');
+
+  if (fs.existsSync(frontendDir)) {
+    if (!fs.existsSync(publicDir)) {
+      fs.mkdirSync(publicDir, { recursive: true });
+    }
+    const filesToCopy = ['index.html', 'styles.css', 'script.js', 'config.js'];
+    filesToCopy.forEach((file) => {
+      const src = path.join(frontendDir, file);
+      const dest = path.join(publicDir, file);
+      if (fs.existsSync(src)) {
+        fs.copyFileSync(src, dest);
+      }
+    });
+    console.log(`[build.js] Synced frontend files to public/ directory`);
+  }
+} catch (e) {
+  console.warn(`[build.js] Could not sync public directory:`, e.message);
+}

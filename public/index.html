@@ -1,0 +1,438 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>StrokeRisk AI | Clinical Stroke Risk Assessment Platform</title>
+    <meta name="description" content="AI-powered clinical stroke risk prediction and cardiovascular diagnostic engine powered by machine learning.">
+    <meta name="keywords" content="stroke prediction, AI health, machine learning healthcare, cardiovascular risk, fastapi, vercel, render">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <!-- Ambient Background Glows -->
+    <div class="glow-orb glow-1" aria-hidden="true"></div>
+    <div class="glow-orb glow-2" aria-hidden="true"></div>
+
+    <div class="app-shell">
+        <!-- Top Navigation Bar -->
+        <header class="navbar">
+            <div class="nav-brand">
+                <div class="brand-icon">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M22 12h-4l-3 9L9 3l-3 9H2"/>
+                    </svg>
+                </div>
+                <div class="brand-text">
+                    <span class="brand-name">StrokeRisk <span class="brand-badge">AI</span></span>
+                    <span class="brand-tagline">Clinical Stroke Intelligence Engine</span>
+                </div>
+            </div>
+
+            <div class="nav-actions">
+                <button type="button" id="backendStatusBtn" class="status-pill checking" aria-label="Backend Connection Status" title="Click to view API settings">
+                    <span class="status-dot"></span>
+                    <span id="statusLabel" class="status-label">Checking API...</span>
+                </button>
+                <button type="button" id="openSettingsBtn" class="nav-btn icon-btn" aria-label="API Settings" title="Configure Backend API URL">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <circle cx="12" cy="12" r="3"></circle>
+                        <path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"></path>
+                    </svg>
+                </button>
+            </div>
+        </header>
+
+        <!-- Hero Section -->
+        <section class="hero-section">
+            <div class="hero-badge">
+                <span class="badge-spark">✦</span> Machine Learning Diagnostic Platform
+            </div>
+            <h1 class="hero-title">Predict Stroke Vulnerability with <span class="gradient-text">Clinical Precision</span></h1>
+            <p class="hero-subtitle">
+                Trained on calibrated patient biometrics, lifestyle factors, and metabolic indicators using an optimized Random Forest architecture.
+            </p>
+
+            <!-- Quick Evaluation Presets -->
+            <div class="presets-bar">
+                <span class="presets-label">⚡ Quick Profiles:</span>
+                <button type="button" id="presetHighRisk" class="preset-btn high-risk" title="Load patient with advanced age, high glucose, and hypertension">
+                    <span>High Risk Profile</span>
+                </button>
+                <button type="button" id="presetModerateRisk" class="preset-btn moderate-risk" title="Load patient with middle age and prediabetic biomarkers">
+                    <span>Moderate Risk</span>
+                </button>
+                <button type="button" id="presetLowRisk" class="preset-btn low-risk" title="Load healthy young patient with normal biometrics">
+                    <span>Healthy Profile</span>
+                </button>
+                <button type="button" id="presetReset" class="preset-btn reset" title="Clear form inputs">
+                    <span>Reset</span>
+                </button>
+            </div>
+        </section>
+
+        <!-- Main Form & Evaluation Workspace -->
+        <main class="main-container">
+            <form id="predictionForm" class="diagnostic-card" novalidate>
+                
+                <!-- Section 1: Demographics -->
+                <div class="form-section">
+                    <div class="section-header">
+                        <div class="section-number">1</div>
+                        <div class="section-meta">
+                            <h2 class="section-title">Patient Demographics</h2>
+                            <p class="section-desc">Baseline biological and socio-environmental determinants</p>
+                        </div>
+                    </div>
+
+                    <div class="section-grid">
+                        <!-- Gender -->
+                        <div class="field-item">
+                            <label class="field-label" for="gender">Biological Sex</label>
+                            <div class="segmented-control" role="radiogroup" aria-label="Gender">
+                                <label class="segment-option">
+                                    <input type="radio" name="gender" value="Male" checked id="genderMale">
+                                    <span class="segment-pill">Male</span>
+                                </label>
+                                <label class="segment-option">
+                                    <input type="radio" name="gender" value="Female" id="genderFemale">
+                                    <span class="segment-pill">Female</span>
+                                </label>
+                            </div>
+                        </div>
+
+                        <!-- Age -->
+                        <div class="field-item field-span-2">
+                            <div class="field-header-row">
+                                <label class="field-label" for="ageInput">Age (Years)</label>
+                                <span id="ageBadge" class="clinical-tag tag-normal">Young Adult</span>
+                            </div>
+                            <div class="slider-input-group">
+                                <input type="range" id="ageSlider" class="range-slider" min="1" max="100" value="45">
+                                <input type="number" id="ageInput" name="age" class="num-input" min="1" max="120" value="45" required>
+                            </div>
+                            <span class="field-hint">Clinical note: Vascular stroke risk doubles each decade past age 55</span>
+                        </div>
+
+                        <!-- Marital Status -->
+                        <div class="field-item">
+                            <label class="field-label">Marital History</label>
+                            <div class="segmented-control" role="radiogroup" aria-label="Ever Married">
+                                <label class="segment-option">
+                                    <input type="radio" name="ever_married" value="1" checked id="marriedYes">
+                                    <span class="segment-pill">Ever Married</span>
+                                </label>
+                                <label class="segment-option">
+                                    <input type="radio" name="ever_married" value="0" id="marriedNo">
+                                    <span class="segment-pill">Never Married</span>
+                                </label>
+                            </div>
+                        </div>
+
+                        <!-- Residence Type -->
+                        <div class="field-item">
+                            <label class="field-label">Residence Setting</label>
+                            <div class="segmented-control" role="radiogroup" aria-label="Residence Type">
+                                <label class="segment-option">
+                                    <input type="radio" name="residence_type" value="Urban" checked id="residenceUrban">
+                                    <span class="segment-pill">Urban</span>
+                                </label>
+                                <label class="segment-option">
+                                    <input type="radio" name="residence_type" value="Rural" id="residenceRural">
+                                    <span class="segment-pill">Rural</span>
+                                </label>
+                            </div>
+                        </div>
+
+                        <!-- Work Type -->
+                        <div class="field-item field-span-2">
+                            <label class="field-label" for="work_type">Employment Domain</label>
+                            <select id="work_type" name="work_type" class="form-select" required>
+                                <option value="Private" selected>Private Enterprise</option>
+                                <option value="Self-employed">Self-Employed / Freelance</option>
+                                <option value="Govt_job">Government / Public Service</option>
+                                <option value="children">Child / Adolescent Student</option>
+                                <option value="Never_worked">Never Formally Employed</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Section 2: Clinical Biomarkers -->
+                <div class="form-section">
+                    <div class="section-header">
+                        <div class="section-number">2</div>
+                        <div class="section-meta">
+                            <h2 class="section-title">Metabolic & Biometric Markers</h2>
+                            <p class="section-desc">Key systemic indicators for glycemic control and mass index</p>
+                        </div>
+                    </div>
+
+                    <div class="section-grid">
+                        <!-- Blood Glucose -->
+                        <div class="field-item field-span-2">
+                            <div class="field-header-row">
+                                <label class="field-label" for="glucoseInput">Average Blood Glucose (mg/dL)</label>
+                                <span id="glucoseBadge" class="clinical-tag tag-normal">Normal Fasting (&lt;140)</span>
+                            </div>
+                            <div class="slider-input-group">
+                                <input type="range" id="glucoseSlider" class="range-slider" min="50" max="300" step="0.5" value="95">
+                                <input type="number" id="glucoseInput" name="avg_glucose_level" class="num-input" min="40" max="350" step="0.1" value="95.0" required>
+                            </div>
+                            <div class="scale-legend">
+                                <span class="legend-tick tick-low">Normal: 70–140</span>
+                                <span class="legend-tick tick-mid">Impaired: 140–199</span>
+                                <span class="legend-tick tick-high">Elevated: 200+</span>
+                            </div>
+                        </div>
+
+                        <!-- BMI -->
+                        <div class="field-item field-span-2">
+                            <div class="field-header-row">
+                                <label class="field-label" for="bmiInput">Body Mass Index (BMI kg/m²)</label>
+                                <span id="bmiBadge" class="clinical-tag tag-normal">Normal Weight (18.5–24.9)</span>
+                            </div>
+                            <div class="slider-input-group">
+                                <input type="range" id="bmiSlider" class="range-slider" min="10" max="60" step="0.1" value="24.5">
+                                <input type="number" id="bmiInput" name="bmi" class="num-input" min="10" max="75" step="0.1" value="24.5" required>
+                            </div>
+                            <div class="scale-legend">
+                                <span class="legend-tick tick-low">Normal: 18.5–24.9</span>
+                                <span class="legend-tick tick-mid">Overweight: 25–29.9</span>
+                                <span class="legend-tick tick-high">Obesity: 30+</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Section 3: Cardiovascular History & Habits -->
+                <div class="form-section">
+                    <div class="section-header">
+                        <div class="section-number">3</div>
+                        <div class="section-meta">
+                            <h2 class="section-title">Cardiovascular History & Lifestyle</h2>
+                            <p class="section-desc">Diagnosed pre-existing conditions and tobacco consumption</p>
+                        </div>
+                    </div>
+
+                    <div class="section-grid">
+                        <!-- Hypertension Toggle Card -->
+                        <div class="field-item">
+                            <label class="field-label">Hypertension Diagnosis</label>
+                            <label class="toggle-card" for="hypertensionCheckbox">
+                                <input type="checkbox" id="hypertensionCheckbox" class="hidden-checkbox">
+                                <div class="toggle-card-content">
+                                    <div class="toggle-card-icon">
+                                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                            <path d="M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/>
+                                        </svg>
+                                    </div>
+                                    <div class="toggle-card-text">
+                                        <span class="toggle-title">Chronic High Blood Pressure</span>
+                                        <span class="toggle-sub">Systolic ≥ 130 or Diastolic ≥ 80 mmHg</span>
+                                    </div>
+                                    <div class="toggle-switch-indicator"></div>
+                                </div>
+                            </label>
+                        </div>
+
+                        <!-- Heart Disease Toggle Card -->
+                        <div class="field-item">
+                            <label class="field-label">Pre-existing Heart Disease</label>
+                            <label class="toggle-card" for="heartDiseaseCheckbox">
+                                <input type="checkbox" id="heartDiseaseCheckbox" class="hidden-checkbox">
+                                <div class="toggle-card-content">
+                                    <div class="toggle-card-icon">
+                                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                            <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/>
+                                        </svg>
+                                    </div>
+                                    <div class="toggle-card-text">
+                                        <span class="toggle-title">Cardiac Disease / CAD</span>
+                                        <span class="toggle-sub">Coronary, arrhythmia, or valve history</span>
+                                    </div>
+                                    <div class="toggle-switch-indicator"></div>
+                                </div>
+                            </label>
+                        </div>
+
+                        <!-- Smoking Status -->
+                        <div class="field-item field-span-2">
+                            <label class="field-label" for="smoking_status">Smoking / Tobacco History</label>
+                            <select id="smoking_status" name="smoking_status" class="form-select" required>
+                                <option value="never smoked" selected>Never Smoked (Non-smoker)</option>
+                                <option value="formerly smoked">Formerly Smoked (Cessation achieved)</option>
+                                <option value="smokes">Active Smoker</option>
+                                <option value="Unknown">Unknown / Data Unavailable</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Server Wake-Up / Cold Start Alert (Render Free Tier) -->
+                <div id="renderWakeAlert" class="wake-alert" style="display: none;" role="alert">
+                    <div class="wake-spinner"></div>
+                    <div class="wake-text">
+                        <strong>Waking up backend server on Render...</strong>
+                        <span>Free-tier cloud containers hibernate after idle time. Waking takes ~30–45 seconds. Thank you for your patience!</span>
+                    </div>
+                </div>
+
+                <!-- Submit Button Bar -->
+                <div class="form-actions">
+                    <button type="submit" id="submitBtn" class="submit-btn">
+                        <span class="btn-text">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="btn-icon">
+                                <path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/>
+                            </svg>
+                            Compute Stroke Risk Assessment
+                        </span>
+                        <div class="btn-spinner" style="display: none;"></div>
+                    </button>
+                </div>
+            </form>
+
+            <!-- Results Dashboard Card -->
+            <div id="resultContainer" class="result-dashboard" style="display: none;" aria-live="polite">
+                <div class="result-header">
+                    <div class="result-title-group">
+                        <span class="result-pretitle">Diagnostic Evaluation Report</span>
+                        <h2 class="result-title">Clinical Assessment Results</h2>
+                    </div>
+                    <div class="result-actions">
+                        <button type="button" id="copyResultBtn" class="action-btn secondary" title="Copy report summary to clipboard">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect>
+                                <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path>
+                            </svg>
+                            Copy Summary
+                        </button>
+                        <button type="button" id="printReportBtn" class="action-btn primary" title="Print clinical report or export to PDF">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <polyline points="6 9 6 2 18 2 18 9"></polyline>
+                                <path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"></path>
+                                <rect x="6" y="14" width="12" height="8"></rect>
+                            </svg>
+                            Print / PDF
+                        </button>
+                    </div>
+                </div>
+
+                <div class="result-main-grid">
+                    <!-- Gauge Meter Card -->
+                    <div class="gauge-card">
+                        <div class="gauge-wrapper">
+                            <svg class="gauge-svg" viewBox="0 0 200 200">
+                                <circle class="gauge-bg" cx="100" cy="100" r="80"></circle>
+                                <circle id="gaugeCircle" class="gauge-fill" cx="100" cy="100" r="80"></circle>
+                            </svg>
+                            <div class="gauge-content">
+                                <div id="probabilityNumber" class="gauge-percent">0.0%</div>
+                                <div class="gauge-label">Stroke Risk Probability</div>
+                            </div>
+                        </div>
+
+                        <div id="riskTierBadge" class="risk-tier-badge tier-low">
+                            Low Stroke Risk
+                        </div>
+                        <p id="predictionSummaryText" class="prediction-detail-text">
+                            Classification: No elevated stroke risk detected based on current biomarkers.
+                        </p>
+                    </div>
+
+                    <!-- Detailed Factors & Recommendations -->
+                    <div class="findings-card">
+                        <div class="findings-block">
+                            <h3 class="findings-heading">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="heading-icon">
+                                    <path d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"/>
+                                </svg>
+                                Primary Clinical Risk Drivers
+                            </h3>
+                            <ul id="riskFactorsList" class="factors-list">
+                                <!-- Populated dynamically -->
+                            </ul>
+                        </div>
+
+                        <div class="findings-block">
+                            <h3 class="findings-heading">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="heading-icon">
+                                    <path d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/>
+                                </svg>
+                                Actionable Health Recommendations
+                            </h3>
+                            <ul id="recommendationsList" class="recommendations-list">
+                                <!-- Populated dynamically -->
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="disclaimer-bar">
+                    <span>⚠️ <strong>Medical Disclaimer:</strong> StrokeRisk AI is an automated statistical risk estimation tool powered by machine learning for educational and decision-support purposes. It does not replace professional diagnosis by a qualified medical practitioner. If experiencing sudden numbness, weakness, or speech loss, call emergency services immediately.</span>
+                </div>
+            </div>
+        </main>
+
+        <!-- Footer -->
+        <footer class="app-footer">
+            <div class="footer-content">
+                <p>Designed for deployment on <strong>Vercel</strong> (Frontend) & <strong>Render</strong> (Backend API).</p>
+                <div class="footer-links">
+                    <a href="https://github.com/SatyaTejaChukka/stroke-prediction" target="_blank" rel="noopener">GitHub Repository</a>
+                    <span class="footer-sep">•</span>
+                    <a href="#api-settings" id="footerApiLink">API Settings</a>
+                    <span class="footer-sep">•</span>
+                    <span id="apiVersion">API: FastAPI 2.0</span>
+                </div>
+            </div>
+        </footer>
+    </div>
+
+    <!-- API Configuration Modal -->
+    <div id="settingsModal" class="modal-backdrop" style="display: none;" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
+        <div class="modal-card">
+            <div class="modal-header">
+                <h3 id="modalTitle" class="modal-title">Backend API Configuration</h3>
+                <button type="button" id="closeSettingsBtn" class="modal-close-btn" aria-label="Close settings">✕</button>
+            </div>
+            <div class="modal-body">
+                <p class="modal-info">
+                    Connect this Vercel frontend to your deployed Render backend web service. Automatically reads from the <code>BACKEND_URL</code> environment variable configured in your Vercel Project Settings.
+                </p>
+
+                <div class="form-group">
+                    <label for="apiUrlInput" class="field-label">Backend API Base URL</label>
+                    <input type="url" id="apiUrlInput" class="text-input" placeholder="https://your-service.onrender.com" spellcheck="false">
+                    <span class="field-hint">Configured via Vercel env var <code>BACKEND_URL</code>, or override manually here.</span>
+                </div>
+
+                <div class="quick-url-presets">
+                    <button type="button" id="useLocalhostBtn" class="mini-btn">Set to Localhost:8000</button>
+                    <button type="button" id="useVercelEnvBtn" class="mini-btn">Reset to Vercel Env (BACKEND_URL)</button>
+                </div>
+
+                <div id="connectionStatusBox" class="connection-status-box">
+                    <div class="status-indicator-row">
+                        <span id="modalStatusDot" class="status-dot"></span>
+                        <span id="modalStatusText">Status: Not tested yet</span>
+                    </div>
+                    <div id="modalLatencyText" class="latency-text">Latency: --</div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" id="testConnectionBtn" class="modal-btn secondary">Test Connection</button>
+                <button type="button" id="saveSettingsBtn" class="modal-btn primary">Save & Connect</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Toast Notification -->
+    <div id="toastNotification" class="toast" style="display: none;" role="status"></div>
+
+    <script src="config.js"></script>
+    <script src="script.js"></script>
+</body>
+</html>

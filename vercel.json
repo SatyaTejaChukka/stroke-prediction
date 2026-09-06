@@ -2,30 +2,11 @@
   "version": 2,
   "cleanUrls": true,
   "buildCommand": "node build.js",
+  "outputDirectory": "frontend",
   "rewrites": [
     {
       "source": "/api/config",
       "destination": "/api/config.js"
-    },
-    {
-      "source": "/",
-      "destination": "/frontend/index.html"
-    },
-    {
-      "source": "/styles.css",
-      "destination": "/frontend/styles.css"
-    },
-    {
-      "source": "/script.js",
-      "destination": "/frontend/script.js"
-    },
-    {
-      "source": "/config.js",
-      "destination": "/frontend/config.js"
-    },
-    {
-      "source": "/(.*)",
-      "destination": "/frontend/$1"
     }
   ],
   "headers": [

@@ -2,6 +2,7 @@
   "version": 2,
   "cleanUrls": true,
   "buildCommand": "node build.js",
+  "outputDirectory": ".",
   "headers": [
     {
       "source": "/(.*)",
