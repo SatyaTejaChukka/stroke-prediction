@@ -83,6 +83,7 @@ const elements = {
     recommendationsList: document.getElementById('recommendationsList'),
     copyResultBtn: document.getElementById('copyResultBtn'),
     printReportBtn: document.getElementById('printReportBtn'),
+    metricRiskTier: document.getElementById('metricRiskTier'),
 
     // Modal
     settingsModal: document.getElementById('settingsModal'),
@@ -102,8 +103,8 @@ const elements = {
     toastNotification: document.getElementById('toastNotification')
 };
 
-// SVG Circumference for 80px radius circle
-const CIRCLE_CIRCUMFERENCE = 2 * Math.PI * 80; // ~502.65
+// SVG Circumference for 88px radius circle
+const CIRCLE_CIRCUMFERENCE = 2 * Math.PI * 88; // ~552.92
 
 // Initialize Application
 document.addEventListener('DOMContentLoaded', async () => {
@@ -494,6 +495,10 @@ function displayAssessmentResult(result, inputData) {
             li.textContent = rec;
             elements.recommendationsList.appendChild(li);
         });
+    }
+
+    if (elements.metricRiskTier) {
+        elements.metricRiskTier.textContent = `${risk_level} Risk`;
     }
 
     elements.resultContainer.scrollIntoView({ behavior: 'smooth', block: 'start' });

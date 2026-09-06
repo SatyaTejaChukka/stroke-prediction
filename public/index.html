@@ -324,13 +324,14 @@
                     <!-- Gauge Meter Card -->
                     <div class="gauge-card">
                         <div class="gauge-wrapper">
-                            <svg class="gauge-svg" viewBox="0 0 200 200">
-                                <circle class="gauge-bg" cx="100" cy="100" r="80"></circle>
-                                <circle id="gaugeCircle" class="gauge-fill" cx="100" cy="100" r="80"></circle>
+                            <svg class="gauge-svg" viewBox="0 0 220 220">
+                                <circle class="gauge-bg" cx="110" cy="110" r="88"></circle>
+                                <circle id="gaugeCircle" class="gauge-fill" cx="110" cy="110" r="88"></circle>
                             </svg>
                             <div class="gauge-content">
+                                <span class="gauge-caption">Stroke Risk</span>
                                 <div id="probabilityNumber" class="gauge-percent">0.0%</div>
-                                <div class="gauge-label">Stroke Risk Probability</div>
+                                <span class="gauge-sub">Probability</span>
                             </div>
                         </div>
 
@@ -340,6 +341,17 @@
                         <p id="predictionSummaryText" class="prediction-detail-text">
                             Classification: No elevated stroke risk detected based on current biomarkers.
                         </p>
+
+                        <div class="gauge-metrics">
+                            <div class="gauge-metric-pill">
+                                <span class="pill-label">Diagnostic AI</span>
+                                <span class="pill-value">Random Forest</span>
+                            </div>
+                            <div class="gauge-metric-pill">
+                                <span class="pill-label">Risk Profile</span>
+                                <span id="metricRiskTier" class="pill-value">Baseline</span>
+                            </div>
+                        </div>
                     </div>
 
                     <!-- Detailed Factors & Recommendations -->
